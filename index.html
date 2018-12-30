@@ -1,6 +1,34 @@
-<h1>Quiz Dictionnaire</h1>
+<!doctype html>
 
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Quiz Dictionnaire</title>
+</head>
 
+<body>
+	<h1>Quiz Dictionnaire</h1>
 
-<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
-<script src="/quiz.js"></script>
+	<div class="guessBox">
+		<input onclick='speak();' type='button' value='🔊' />
+		<input type='text' id="guess" />
+		<input type='submit' value='Deviner' onclick='guess();'/>
+		<input type='submit' value='Nouveau Mot' onclick='set_random_word();' hidden=true id="newWord"/>
+	</div>
+	<div class="resultBox">
+		<span id="successResult" hidden=true>✔️ Félicitations!</span>
+		<span id="failedResult" hidden=true>❌ Incorrect</span>
+	</div>
+
+	<div class="phonemeBox">
+		<input type='button' value='eau' onclick='playSound("#phoneme1");' />
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+	<script src="quiz.js"></script>	
+
+	<audio id="phoneme1" src="http://www.soundjay.com/button/beep-07.wav"  ></audio>
+</body>
+</html>
+
