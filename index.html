@@ -7,28 +7,151 @@
 </head>
 
 <body>
-	<h1>Quiz Dictionnaire</h1>
-
-	<div class="guessBox">
-		<input onclick='speak();' type='button' value='🔊' />
-		<input type='text' id="guess" />
-		<input type='submit' value='Deviner' onclick='guess();'/>
-		<input type='submit' value='Nouveau Mot' onclick='set_random_word();' hidden=true id="newWord"/>
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Quiz Dictionnaire</a>
+		<ul class="navbar-nav mr-auto">
+	        <li class="nav-item active">
+	          <span class="text-light" id="score">Score: 0</span>
+	        </li>
+      	</ul>
+        <form class="form-inline">
+	        <select class="nav-item custom-select form-control" onchange="set_words()" id="list">
+			    <option value="lists/merfip1.txt">Priorité 1</option>
+			    <option value="lists/merfip2.txt">Priorité 2</option>
+			    <option value="lists/merfip3.txt">Priorité 3</option>
+			    <option value="lists/merfip4.txt">Priorité 4</option>
+			    <option value="lists/merfip5.txt">Priorité 5</option>
+			    <option value="lists/merfip6.txt">Priorité 6</option>
+			    <option value="lists/merfip7.txt">Priorité 7</option>
+			    <option value="lists/merfip8.txt">Priorité 8</option>
+			    <option value="lists/merfip9.txt">Priorité 9</option>
+		  	</select>
+	  	</form>
+        
+	</nav>
+	<div class="container">
+	<div class="border m-2">
+		<div class="guessBox mx-auto mt-2 mb-2" style="display: table">
+			<input class="btn" onclick='speak();' type='button' value='🔊' />
+			<input type='text' id="guess" />
+			<input class="btn" type='submit' value='Deviner' onclick='guess();'/>
+			<input class="btn" type='submit' value='Nouveau Mot' onclick='set_random_word();' hidden=true id="newWord"/>
+		</div>
+		<div class="alert alert-success m-2" id="successResult" hidden=true>✔️ Félicitations!</div>
+		<div class="alert alert-warning m-2" id="failedResult" hidden=true>❌ Incorrect</div>
 	</div>
-	<div class="resultBox">
-		<span id="successResult" hidden=true>✔️ Félicitations!</span>
-		<span id="failedResult" hidden=true>❌ Incorrect</span>
-	</div>
 
-	<div class="phonemeBox">
-		<input type='button' value='eau' onclick='playSound("#phoneme1");' />
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Les Consonnes</h2>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#b')">b, bb</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#k')">c, qu, k</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#sh')">ch, sh</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#d')">d</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#f')">f, ph, ff</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#g')">g, gu</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#gn')">gn</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#j')">j, g, ge</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#l')">l, ll</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#m')">m, mm</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#n')">n, nn</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#p')">p, pp</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#r')">r, rr</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#s')">s, c, ç, ss</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#t')">t, tt</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#v')">v</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#z')">z, s</a>
+    	</div>
+    	<div class="col-md-4">
+    		<h2>Les Sons Complexe</h2>
+    		<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#all')">ail</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#an')">an</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#au')">au</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#eil-eille')">eil-eille</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#elle')">elle</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ette')">ette</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#eur')">eur</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ien')">ien</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ienne')">ienne</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ier')">ier</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ière')">ière</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ill-ille')">ill-ille</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#in')">in</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#oi')">oi</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#oin')">oin</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#on')">on</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ou')">ou</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ouille')">ouille</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#tion')">tion</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ueil')">ueil</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#ui')">ui</a>
+    	</div>
+    	<div class="col-md-4">
+    		<h2>Les Voyelles</h2>
+    		<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#a-antérieur')">a - antérieur</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#a-postérieur')">a - postérieur</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#e')">e</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#é')">é</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#eu')">eu</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#i')">i</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#o-fermé')">o - fermé</a>
+			<a class="btn btn-primary active" data-toggle="list" onclick="playSound('#o-ouvert')">o - ouvert</a>
+    	</div>
+	  </div>
 	</div>
+</body>
 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 	<script src="quiz.js"></script>	
 
-	<audio id="phoneme1" src="http://www.soundjay.com/button/beep-07.wav"  ></audio>
-</body>
+	<audio id="b" src="audio/Les Consonnes/b, bb/b.m4a"></audio>
+	<audio id="k" src="audio/Les Consonnes/c, qu, k/k.m4a"></audio>
+	<audio id="sh" src="audio/Les Consonnes/ch, sh/sh.m4a"></audio>
+	<audio id="d" src="audio/Les Consonnes/d/d.m4a"></audio>
+	<audio id="f" src="audio/Les Consonnes/f, ph, ff/f.m4a"></audio>
+	<audio id="g" src="audio/Les Consonnes/g, gu/g.m4a"></audio>
+	<audio id="gn" src="audio/Les Consonnes/gn/gn.m4a"></audio>
+	<audio id="j" src="audio/Les Consonnes/j, g, ge/j.m4a"></audio>
+	<audio id="l" src="audio/Les Consonnes/l, ll/l.m4a"></audio>
+	<audio id="m" src="audio/Les Consonnes/m, mm/m.m4a"></audio>
+	<audio id="n" src="audio/Les Consonnes/n, nn/n.m4a"></audio>
+	<audio id="p" src="audio/Les Consonnes/p, pp/p.m4a"></audio>
+	<audio id="r" src="audio/Les Consonnes/r, rr/r.m4a"></audio>
+	<audio id="s" src="audio/Les Consonnes/s, c, ç, ss/s.m4a"></audio>
+	<audio id="t" src="audio/Les Consonnes/t, tt/t.m4a"></audio>
+	<audio id="v" src="audio/Les Consonnes/v/v.m4a"></audio>
+	<audio id="z" src="audio/Les Consonnes/z, s/z.m4a"></audio>
+	<audio id="all" src="audio/Les Sons Complexes/ail/all.m4a"></audio>
+	<audio id="an" src="audio/Les Sons Complexes/an/an.m4a"></audio>
+	<audio id="au" src="audio/Les Sons Complexes/au/au.m4a"></audio>
+	<audio id="eil-eille" src="audio/Les Sons Complexes/eil-eille/eil-eille.m4a"></audio>
+	<audio id="elle" src="audio/Les Sons Complexes/elle/elle.m4a"></audio>
+	<audio id="ette" src="audio/Les Sons Complexes/ette/ette.m4a"></audio>
+	<audio id="eur" src="audio/Les Sons Complexes/eur/eur.m4a"></audio>
+	<audio id="ien" src="audio/Les Sons Complexes/ien/ien.m4a"></audio>
+	<audio id="ienne" src="audio/Les Sons Complexes/ienne/ienne.m4a"></audio>
+	<audio id="ier" src="audio/Les Sons Complexes/ier/ier.m4a"></audio>
+	<audio id="ière" src="audio/Les Sons Complexes/ière/ière.m4a"></audio>
+	<audio id="ill-ille" src="audio/Les Sons Complexes/ill-ille/ill-ille.m4a"></audio>
+	<audio id="in" src="audio/Les Sons Complexes/in/in.m4a"></audio>
+	<audio id="oi" src="audio/Les Sons Complexes/oi/oi.m4a"></audio>
+	<audio id="oin" src="audio/Les Sons Complexes/oin/oin.m4a"></audio>
+	<audio id="on" src="audio/Les Sons Complexes/on/on.m4a"></audio>
+	<audio id="ou" src="audio/Les Sons Complexes/ou/ou.m4a"></audio>
+	<audio id="ouille" src="audio/Les Sons Complexes/ouille/ouille.m4a"></audio>
+	<audio id="tion" src="audio/Les Sons Complexes/tion/tion.m4a"></audio>
+	<audio id="ueil" src="audio/Les Sons Complexes/ueil/ueil.m4a"></audio>
+	<audio id="ui" src="audio/Les Sons Complexes/ui/ui.m4a"></audio>
+	<audio id="a-antérieur" src="audio/Les Voyelles/a - antérieur/a-antérieur.m4a"></audio>
+	<audio id="a-postérieur" src="audio/Les Voyelles/a - postérieur/a-postérieur.m4a"></audio>
+	<audio id="e" src="audio/Les Voyelles/e/e.m4a"></audio>
+	<audio id="é" src="audio/Les Voyelles/é/é.m4a"></audio>
+	<audio id="eu" src="audio/Les Voyelles/eu/eu.m4a"></audio>
+	<audio id="i" src="audio/Les Voyelles/i/i.m4a"></audio>
+	<audio id="o-fermé" src="audio/Les Voyelles/o - fermé/o-fermé.m4a"></audio>
+	<audio id="o-ouvert" src="audio/Les Voyelles/o - ouvert/o-ouvert.m4a"></audio>
 </html>
 

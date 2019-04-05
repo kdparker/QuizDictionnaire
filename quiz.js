@@ -2,45 +2,53 @@
 var words = [];
 var current_word = null;
 var wrong_guesses = 0;
+var score = 0;
 var correctly_guessed = false;
 
-function initialize() {
-	$.get( "fr_modern_uniq.txt", function( data ) {
+function set_words() {
+	var list = $("#list").val()
+	$.get(list, function( data ) {
 		words = data.split(/\s/);
+		score = 0;
 		set_random_word();
+		refresh_display();
 		console.log(words.length + " words in the dictionary.");
 	}, "text");
+}
+
+function initialize() {
+	set_words("lists/merfip1.txt");
 	responsiveVoice.setDefaultVoice("French Female");
 }
 
 function get_random_word() {
-	return words[Math.floor(Math.random() * words.length)]
+	return words[Math.floor(Math.random() * words.length)].toLowerCase()
 }
 
 function set_random_word() {
 	current_word = get_random_word();
 	wrong_guesses = 0;
 	correctly_guessed = false;
-	refresh_display();
 }
 
 function refresh_display() {
 	$("#guess").val("");
 	if (correctly_guessed) {
-		$("#failedResult").hide()
-		$("#successResult").show()
+		$("#failedResult").attr("hidden", true)
+		$("#successResult").attr("hidden", false)
 	} else if (wrong_guesses > 0) {
-		$("#failedResult").show()
-		$("#successResult").hide()
+		$("#failedResult").attr("hidden", false)
+		$("#successResult").attr("hidden", true)
 	} else {
-		$("#failedResult").hide()
-		$("#successResult").hide()
+		$("#failedResult").attr("hidden", true)
+		$("#successResult").attr("hidden", true)
 	}
-	if (correctly_guessed || wrong_guesses >= 5) {
-		$("#newWord").show()
+	if (wrong_guesses >= 5) {
+		$("#newWord").attr("hidden", false)
 	} else {
-		$("#newWord").hide()
+		$("#newWord").attr("hidden", true)
 	}
+	$("#score").text("Score: " + score.toString())
 }
 
 function speak() {
@@ -48,13 +56,17 @@ function speak() {
 }
 
 function guess() {
-	var guess = $("#guess").val();
+	var guess = $("#guess").val().toLowerCase();
 	if (guess === current_word) {
 		correctly_guessed = true;
+		score++;
+		refresh_display();
+		set_random_word();
 	} else {
 		wrong_guesses++;
+		score = 0;
+		refresh_display();
 	}
-	refresh_display();
 }
 
 function playSound(tag) {
